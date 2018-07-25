@@ -1,8 +1,12 @@
 ## Express request headers filter
 Filter headers from request which will be passed to response
 
-[![codecov](https://codecov.io/gh/L2jLiga/express-request-headers-filter/branch/master/graph/badge.svg)](https://codecov.io/gh/L2jLiga/express-request-headers-filter)
+[![npm version](https://badge.fury.io/js/express-request-headers-filter.svg?colorB=brightgreen)](https://www.npmjs.com/package/express-request-headers-filter)
+[![npm](https://img.shields.io/npm/dm/express-request-headers-filter.svg?colorB=brightgreen)](https://www.npmjs.com/package/express-request-headers-filter)
+[![Dependency Status](https://img.shields.io/david/L2jLiga/express-request-headers-filter.svg)](https://david-dm.org/L2jLiga/express-request-headers-filter)
+[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 [![Travis-CI](https://travis-ci.com/L2jLiga/express-request-headers-filter.svg?branch=master)](https://travis-ci.com/L2jLiga/express-request-headers-filter)
+[![codecov](https://codecov.io/gh/L2jLiga/express-request-headers-filter/branch/master/graph/badge.svg)](https://codecov.io/gh/L2jLiga/express-request-headers-filter)
 
 ### Installation
 
