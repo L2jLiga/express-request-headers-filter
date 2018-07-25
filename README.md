@@ -1,6 +1,9 @@
 ## Express request headers filter
 Filter headers from request which will be passed to response
 
+[![codecov](https://codecov.io/gh/L2jLiga/express-request-headers-filter/branch/master/graph/badge.svg)](https://codecov.io/gh/L2jLiga/express-request-headers-filter)
+[![Travis-CI](https://travis-ci.com/L2jLiga/express-request-headers-filter.svg?branch=master)](https://travis-ci.com/L2jLiga/express-request-headers-filter)
+
 ### Installation
 
 via npm
