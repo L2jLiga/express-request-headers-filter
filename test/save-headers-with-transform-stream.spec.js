@@ -3,7 +3,7 @@ const chaiHttp = require('chai-http');
 const http = require('http');
 const nock = require('nock');
 const request = require('request');
-const expressRequestHeaders = require('../index');
+const requestHeadersFilter = require('../index');
 const Transform = require('stream').Transform;
 
 chai.use(chaiHttp);
@@ -40,7 +40,7 @@ describe('Example of usage to save headers with Transform stream', () => {
       const requestStream = request(url);
 
       // Remove me and you will see failed test
-      expressRequestHeaders(requestStream, res);
+      requestHeadersFilter.saveHeaders(requestStream, res);
 
       req.pipe(requestStream).pipe(transformStreamMiddleware()).pipe(res);
     });

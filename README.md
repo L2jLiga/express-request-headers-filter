@@ -24,14 +24,14 @@ or Yarn
 ```javascript
 const express = require('express');
 const request = require('request');
-const headersFilter = require('request-headers-filter');
+const requestHeadersFilter = require('request-headers-filter');
 
 const app = express();
 
 app.get('/', (req, res) => {
   const requestStream = request('https://github.com/L2jLiga/request-headers-filter');
 
-  headersFilter(requestStream, res, ['content-type', 'cookie']);
+  requestHeadersFilter.saveHeaders(requestStream, res, ['content-type', 'cookie']);
 
   req.pipe(requestStream).pipe(res);
 });
@@ -39,5 +39,5 @@ app.get('/', (req, res) => {
 
 ### Usefull cases
 
-1. When you [want to save several headers](test/filter-headers.spec.js)
-1. When you [use Transform stream to change response](test/transform-stream.spec.js)
+1. When you [want to save several headers](test/filter-specify-headers-from-response.js)
+1. When you [use Transform stream to change response](test/save-headers-with-transform-stream.spec.js)

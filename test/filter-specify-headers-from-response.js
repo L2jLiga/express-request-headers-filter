@@ -3,12 +3,12 @@ const chaiHttp = require('chai-http');
 const http = require('http');
 const nock = require('nock');
 const request = require('request');
-const expressRequestHeaders = require('../index');
+const requestHeadersFilter = require('../index');
 
 chai.use(chaiHttp);
 const expect = chai.expect;
 
-describe('Example of usage to filter headers', () => {
+describe('Example of usage to filter headers for response', () => {
   let server;
   let nockServer;
 
@@ -22,7 +22,7 @@ describe('Example of usage to filter headers', () => {
     server.on('request', (req, res) => {
       const requestStream = request(url);
 
-      expressRequestHeaders(requestStream, res, ['content-type', 'cookie']);
+      requestHeadersFilter.saveHeaders(requestStream, res, ['content-type', 'cookie']);
 
       req.pipe(requestStream).pipe(res);
     });
