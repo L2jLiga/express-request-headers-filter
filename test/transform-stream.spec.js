@@ -1,6 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const express = require('express');
+const http = require('http');
 const nock = require('nock');
 const request = require('request');
 const expressRequestHeaders = require('../index');
@@ -10,7 +10,7 @@ chai.use(chaiHttp);
 const expect = chai.expect;
 
 describe('Example of usage to save headers with Transform stream', () => {
-  let app;
+  let server;
   let nockServer;
 
   const url = 'https://mock-server';
@@ -34,8 +34,9 @@ describe('Example of usage to save headers with Transform stream', () => {
   before(() => {
     nockServer = nock(url).get('/');
 
-    app = express();
-    app.get('/', (req, res) => {
+    server = http.createServer();
+
+    server.on('request', (req, res) => {
       const requestStream = request(url);
 
       // Remove me and you will see failed test
@@ -43,6 +44,7 @@ describe('Example of usage to save headers with Transform stream', () => {
 
       req.pipe(requestStream).pipe(transformStreamMiddleware()).pipe(res);
     });
+
   });
 
   after(() => {
@@ -58,7 +60,7 @@ describe('Example of usage to save headers with Transform stream', () => {
 
     nockServer.reply(200, 'content', headers);
 
-    chai.request(app).get('/').end((err, res) => {
+    chai.request(server).get('/').end((err, res) => {
       expect(res.text).to.equal('content', 'Response shouldn\'t be affected:');
       expect(res.headers).to.contain(headers);
 

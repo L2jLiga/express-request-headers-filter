@@ -10,10 +10,10 @@
  * Truncate unrequired headers from response and apply it to express response
  * @param {request.Request} req
  * @param {express.Response} res
- * @param {string[]} headersToSave
+ * @param {string[]?} headersToSave
  * @return {void}
  */
-function expressRequestHeaders(req, res, headersToSave) {
+function requestHeadersFilter(req, res, headersToSave) {
   req.on('response', (reply) => {
     // Back-up all required headers
     const savedHeaders = headersToSave
@@ -25,9 +25,9 @@ function expressRequestHeaders(req, res, headersToSave) {
 
     // Apply saved headers to response
     savedHeaders.map(header => {
-      res.set(header[0], header[1]);
+      res.setHeader(header[0], header[1]);
     });
   });
 }
 
-module.exports = expressRequestHeaders;
+module.exports = requestHeadersFilter;
