@@ -8,8 +8,8 @@
 
 /**
  * Truncate unrequired headers from response and apply it to express response
- * @param {request.Request} req
- * @param {express.Response} res
+ * @param {module.http.IncomingMessage} req
+ * @param {module:http.ServerResponse} res
  * @param {string[]?} headersToSave
  * @return {void}
  */
@@ -17,8 +17,11 @@ function requestHeadersFilter(req, res, headersToSave) {
   req.on('response', (reply) => {
     // Back-up all required headers
     const savedHeaders = headersToSave
-      ? headersToSave.map(header => [header, reply.caseless.get(header)])
-      : Object.entries(reply.headers);
+      ? headersToSave.map(rawHeader => {
+        const header = rawHeader.toLowerCase();
+
+        return [header, reply.headers[header]]
+      }) : Object.entries(reply.headers);
 
     // Clean-up reply headers
     for (let k in reply.headers) delete reply.headers[k];
