@@ -39,9 +39,9 @@ function saveHeaders(incomingMessage, serverResponse, headersToSave) {
     const savedHeaders = headersToSave
       ? headersToSave.map(rawHeader => {
         const header = rawHeader.toLowerCase();
-
+        
         return [header, response.headers[header]];
-      }) : Object.entries(response.headers);
+      }).filter(header => header[1] !== void 0) : Object.entries(response.headers);
 
     // Clean-up response headers
     for (let k in response.headers) delete response.headers[k];
