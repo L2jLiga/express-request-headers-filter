@@ -15,8 +15,7 @@
  */
 function filterHeaders(incomingMessage, headersList, save = false) {
   const headers = incomingMessage.headers;
-
-  regexps = headersList.map(headerName => new RegExp(headerName));
+  const regexps = headersList.map(headerName => new RegExp(headerName));
 
   Object.keys(headers).map(header => {
     regexps.some(regexp => regexp.test(header)) ^ save
@@ -39,7 +38,7 @@ function saveHeaders(incomingMessage, serverResponse, headersToSave) {
     const savedHeaders = headersToSave
       ? headersToSave.map(rawHeader => {
         const header = rawHeader.toLowerCase();
-        
+
         return [header, response.headers[header]];
       }).filter(header => header[1] !== void 0) : Object.entries(response.headers);
 
