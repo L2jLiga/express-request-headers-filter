@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * @license
  * Copyright Andrey Chalkin <L2jLiga>. All Rights Reserved.
@@ -24,6 +26,8 @@ function filterHeaders(incomingMessage, headersList, save = false) {
   });
 }
 
+exports.filterHeaders = filterHeaders;
+
 /**
  * Save all or only required headers from request to response
  * Usefull for cases when you use transform stream
@@ -38,13 +42,10 @@ function saveHeaders(incomingMessage, serverResponse, headersToSave) {
     const savedHeaders = headersToSave
       ? headersToSave.map(rawHeader => {
         const header = rawHeader.toLowerCase();
-
         return [header, response.headers[header]];
       }).filter(header => header[1] !== void 0) : Object.entries(response.headers);
-
     // Clean-up response headers
     for (let k in response.headers) delete response.headers[k];
-
     // Apply saved headers to response
     savedHeaders.map(header => {
       serverResponse.setHeader(header[0], header[1]);
@@ -52,7 +53,4 @@ function saveHeaders(incomingMessage, serverResponse, headersToSave) {
   });
 }
 
-module.exports = {
-  filterHeaders,
-  saveHeaders
-};
+exports.saveHeaders = saveHeaders;

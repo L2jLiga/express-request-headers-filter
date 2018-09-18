@@ -6,7 +6,15 @@
  * found in the LICENSE file at https://github.com/L2jLiga/request-headers-filter/LICENSE
  */
 
-import * as http from 'http';
+/// <reference types="node" />
+import { IncomingHttpHeaders, IncomingMessage, OutgoingMessage } from 'http';
 
-export function filterHeaders(incomingMessage: http.IncomingMessage, headersToFilter?: Array<string|RegExp>, save?: boolean): void;
-export function saveHeaders(incomingMessage: http.IncomingMessage, serverResponse: http.ServerResponse, headersToSave?: string[]): void;
+/**
+ * Truncate unrequired headers from request
+ */
+export declare function filterHeaders(incomingMessage: IncomingHttpHeaders, headersList: string[], save?: boolean): void;
+
+/**
+ * Save all or only required headers from request to response
+ */
+export declare function saveHeaders(incomingMessage: IncomingMessage, serverResponse: OutgoingMessage, headersToSave: string[]): void;

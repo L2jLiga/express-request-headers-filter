@@ -39,5 +39,5 @@ app.get('/', (req, res) => {
 
 ### Usefull cases
 
-1. When you [want to save several headers](test/filter-specify-headers-from-response.js)
+1. When you [want to save several headers](test/filter-specify-headers-from-response.spec.js)
 1. When you [use Transform stream to change response](test/save-headers-with-transform-stream.spec.js)
