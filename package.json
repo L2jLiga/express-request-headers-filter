@@ -31,6 +31,9 @@
   "bugs": {
     "url": "https://github.com/L2jLiga/request-headers-filter/issues"
   },
+  "engines": {
+    "node": ">= 4"
+  },
   "homepage": "https://github.com/L2jLiga/request-headers-filter#readme",
   "devDependencies": {
     "@types/chai": "4.1.4",

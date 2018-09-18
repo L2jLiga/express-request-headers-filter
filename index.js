@@ -15,14 +15,19 @@
  * @param {boolean?} save
  * @return {void}
  */
-function filterHeaders(incomingMessage, headersList, save = false) {
-  const headers = incomingMessage.headers;
-  const regexps = headersList.map(headerName => new RegExp(headerName));
 
-  Object.keys(headers).map(header => {
-    regexps.some(regexp => regexp.test(header)) ^ save
-      ? delete headers[header]
-      : void 0;
+function filterHeaders(incomingMessage, headersList, save) {
+  save = save || false;
+
+  var headers = incomingMessage.headers;
+  var regexps = headersList.map(function (headerName) {
+    return new RegExp(headerName);
+  });
+
+  Object.keys(headers).map(function (header) {
+    regexps.some(function (regexp) {
+      return regexp.test(header);
+    }) ^ save ? delete headers[header] : void 0;
   });
 }
 
@@ -37,17 +42,26 @@ exports.filterHeaders = filterHeaders;
  * @return {void}
  */
 function saveHeaders(incomingMessage, serverResponse, headersToSave) {
-  incomingMessage.on('response', (response) => {
+  incomingMessage.on('response', function (response) {
     // Back-up all required headers
-    const savedHeaders = headersToSave
-      ? headersToSave.map(rawHeader => {
-        const header = rawHeader.toLowerCase();
+    var savedHeaders = headersToSave
+      ? headersToSave.map(function (rawHeader) {
+        var header = rawHeader.toLowerCase();
         return [header, response.headers[header]];
-      }).filter(header => header[1] !== void 0) : Object.entries(response.headers);
+      }).filter(function (header) {
+        return header[1] !== void 0;
+      })
+      : Object.keys(response.headers).map(function (header) {
+        return [header, response.headers[header]];
+      });
+
     // Clean-up response headers
-    for (let k in response.headers) delete response.headers[k];
+    for (var k in response.headers) {
+      delete response.headers[k];
+    }
+
     // Apply saved headers to response
-    savedHeaders.map(header => {
+    savedHeaders.map(function (header) {
       serverResponse.setHeader(header[0], header[1]);
     });
   });
