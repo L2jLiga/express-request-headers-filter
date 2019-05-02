@@ -14,7 +14,7 @@
   },
   "scripts": {
     "test": "nyc mocha",
-    "prepublish": "mocha"
+    "prepublishOnly": "mocha"
   },
   "repository": {
     "type": "git",
