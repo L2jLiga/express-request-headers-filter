@@ -1,6 +1,6 @@
 {
   "name": "request-headers-filter",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Filter headers from request which will be passed to new request and/or response",
   "main": "index.js",
   "typings": "index.d.ts",
