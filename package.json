@@ -21,6 +21,9 @@
     "url": "git+https://github.com/L2jLiga/request-headers-filter.git"
   },
   "keywords": [
+    "http",
+    "https",
+    "proxy",
     "express",
     "request",
     "headers",
@@ -35,18 +38,20 @@
     "node": ">= 4"
   },
   "homepage": "https://github.com/L2jLiga/request-headers-filter#readme",
+  "dependencies": {
+    "@types/node": "*"
+  },
   "devDependencies": {
-    "@types/chai": "4.1.4",
-    "@types/chai-http": "3.0.5",
-    "@types/mocha": "5.2.5",
-    "@types/nock": "9.3.0",
-    "@types/node": "8.10.29",
-    "@types/request": "2.47.1",
-    "chai": "4.1.2",
-    "chai-http": "4.2.0",
+    "@types/chai": "4.1.7",
+    "@types/chai-http": "4.2.0",
+    "@types/mocha": "5.2.6",
+    "@types/nock": "10.0.1",
+    "@types/request": "2.48.1",
+    "chai": "4.2.0",
+    "chai-http": "4.3.0",
     "mocha": "5.2.0",
-    "nock": "9.6.1",
-    "nyc": "13.0.1",
+    "nock": "10.0.6",
+    "nyc": "14.0.0",
     "request": "2.88.0"
   },
   "nyc": {
