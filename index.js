@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @license
  * Copyright Andrey Chalkin <L2jLiga>. All Rights Reserved.
@@ -8,6 +6,11 @@
  * found in the LICENSE file at https://github.com/L2jLiga/request-headers-filter/LICENSE
  */
 
+'use strict';
+
+exports.filterHeaders = filterHeaders;
+exports.saveHeaders = saveHeaders;
+
 /**
  * Truncate unrequired headers from request
  * @param {module:http.IncomingMessage} incomingMessage
@@ -15,14 +18,11 @@
  * @param {boolean?} save
  * @return {void}
  */
-
 function filterHeaders(incomingMessage, headersList, save) {
-  save = save || false;
+  save = Boolean(save);
 
   var headers = incomingMessage.headers;
-  var regexps = headersList.map(function (headerName) {
-    return new RegExp(headerName);
-  });
+  var regexps = headersList.map(toRegExp);
 
   Object.keys(headers).map(function (header) {
     regexps.some(function (regexp) {
@@ -31,7 +31,13 @@ function filterHeaders(incomingMessage, headersList, save) {
   });
 }
 
-exports.filterHeaders = filterHeaders;
+/**
+ * @param {string|RegExp} value
+ * @return {RegExp}
+ */
+function toRegExp(value) {
+  return new RegExp(value);
+}
 
 /**
  * Save all or only required headers from request to response
@@ -43,28 +49,14 @@ exports.filterHeaders = filterHeaders;
  */
 function saveHeaders(incomingMessage, serverResponse, headersToSave) {
   incomingMessage.on('response', function (response) {
-    // Back-up all required headers
-    var savedHeaders = headersToSave
-      ? headersToSave.map(function (rawHeader) {
-        var header = rawHeader.toLowerCase();
-        return [header, response.headers[header]];
-      }).filter(function (header) {
-        return header[1] !== void 0;
-      })
-      : Object.keys(response.headers).map(function (header) {
-        return [header, response.headers[header]];
-      });
+    var headers = response.headers;
+    response.headers = {};
 
-    // Clean-up response headers
-    for (var k in response.headers) {
-      delete response.headers[k];
-    }
+    (headersToSave || Object.keys(headers)).forEach(function (header) {
+      header = header.toLocaleLowerCase();
+      var value = headers[header];
 
-    // Apply saved headers to response
-    savedHeaders.map(function (header) {
-      serverResponse.setHeader(header[0], header[1]);
+      if (value !== void 0) serverResponse.setHeader(header, value);
     });
   });
 }
-
-exports.saveHeaders = saveHeaders;

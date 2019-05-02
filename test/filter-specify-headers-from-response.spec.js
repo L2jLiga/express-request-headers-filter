@@ -54,4 +54,19 @@ describe('Example of usage to filter headers for response', () => {
       done();
     });
   });
+
+  it('should not set headers if they required but does not present in response', (done) => {
+    const expected = {
+      'cookie': 'a=1; b=2',
+    };
+
+    nockServer.reply(200, 'content', expected);
+
+    chai.request(server).get('/').end((err, res) => {
+      expect(res.headers).to.contain(expected);
+      expect(res.header).to.not.contains.keys('content-type');
+
+      done();
+    });
+  });
 });
