@@ -7,14 +7,15 @@
  */
 
 /// <reference types="node" />
-import { IncomingHttpHeaders, IncomingMessage, OutgoingMessage } from 'http';
+
+import { IncomingMessage, OutgoingMessage } from 'http';
 
 /**
- * Truncate unrequired headers from request
+ * Truncate non-required headers from request
  */
-export declare function filterHeaders(incomingMessage: IncomingHttpHeaders, headersList: string[], save?: boolean): void;
+export declare function filterHeaders(incomingMessage: IncomingMessage | OutgoingMessage, headersList: Array<RegExp|string>, save?: boolean): void;
 
 /**
  * Save all or only required headers from request to response
  */
-export declare function saveHeaders(incomingMessage: IncomingMessage, serverResponse: OutgoingMessage, headersToSave: string[]): void;
+export declare function saveHeaders(incomingMessage: IncomingMessage | OutgoingMessage, serverResponse: OutgoingMessage, headersToSave: string[]): void;
